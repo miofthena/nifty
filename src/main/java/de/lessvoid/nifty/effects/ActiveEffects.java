@@ -1,6 +1,8 @@
 package de.lessvoid.nifty.effects;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -9,10 +11,10 @@ import java.util.List;
  * @author void
  */
 public class ActiveEffects {
-  private List<Effect> all = new ArrayList<Effect>();
-  private List<Effect> post = new ArrayList<Effect>();
-  private List<Effect> pre = new ArrayList<Effect>();
-  private List<Effect> overlay = new ArrayList<Effect>();
+  private Collection<Effect> all = new ArrayDeque<Effect>();
+  private Collection<Effect> post = new ArrayDeque<Effect>();
+  private Collection<Effect> pre = new ArrayDeque<Effect>();
+  private Collection<Effect> overlay = new ArrayDeque<Effect>();
 
   private volatile boolean anyNotNeverStopRendering = true;
 
@@ -65,19 +67,19 @@ public class ActiveEffects {
     return false;
   }
 
-  public List<Effect> getActive() {
+  public Collection<Effect> getActive() {
     return all;
   }
 
-  public List<Effect> getActivePost() {
+  public Collection<Effect> getActivePost() {
     return post;
   }
 
-  public List<Effect> getActivePre() {
+  public Collection<Effect> getActivePre() {
     return pre;
   }
 
-  public List<Effect> getActiveOverlay() {
+  public Collection<Effect> getActiveOverlay() {
     return overlay;
   }
 

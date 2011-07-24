@@ -1,6 +1,7 @@
 package de.lessvoid.nifty.effects;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,10 +17,10 @@ import de.lessvoid.nifty.render.NiftyRenderEngine;
  */
 public class EffectProcessor {
   private Logger log = Logger.getLogger(EffectProcessor.class.getName());
-  private List<Effect> allEffects = new ArrayList<Effect>();
+  private Collection<Effect> allEffects = new ArrayList<Effect>();
   private ActiveEffects activeEffects = new ActiveEffects();
-  private List<Effect> activeEffectsToRemove = new ArrayList<Effect>();
-  private List<Effect> pushedEffects = new ArrayList<Effect>();
+  private Collection<Effect> activeEffectsToRemove = new ArrayList<Effect>();
+  private Collection<Effect> pushedEffects = new ArrayList<Effect>();
 
   private boolean active = false;
   private EndNotify listener;
@@ -44,12 +45,12 @@ public class EffectProcessor {
     renderDeviceProxy.reset();
 
     processingEffects = true;
-    for (int i=0; i<activeEffects.getActive().size(); i++) {
-      Effect e = activeEffects.getActive().get(i);
-      if (e.isInherit() && (isActive(e))) {
-        e.execute(renderDeviceProxy);
+      for (Effect e : activeEffects.getActive()) {
+          if (e.isInherit() && (isActive(e))) {
+              e.execute(renderDeviceProxy);
+          }
       }
-    }
+
     checkPendingEffectsRemove();
   }
 
@@ -65,7 +66,7 @@ public class EffectProcessor {
     renderActive(renderDevice, activeEffects.getActiveOverlay());
   }
 
-  private void renderActive(final NiftyRenderEngine renderDevice, final List<Effect> effects) {
+  private void renderActive(final NiftyRenderEngine renderDevice, final Collection<Effect> effects) {
     if (isInactive()) {
       return;
     }
@@ -91,8 +92,7 @@ public class EffectProcessor {
   public void saveActiveNeverStopRenderingEffects() {
     pushedEffects.clear();
 
-    for (int i=0; i<activeEffects.getActive().size(); i++) {
-      Effect e = activeEffects.getActive().get(i);
+    for (Effect e : activeEffects.getActive()) {
       if (e.isNeverStopRendering()) {
         pushedEffects.add(e);
       }
@@ -109,8 +109,7 @@ public class EffectProcessor {
 
   public void reset() {
     active = false;
-    for (int i=0; i<activeEffects.getActive().size(); i++) {
-      Effect e = activeEffects.getActive().get(i);
+    for (Effect e : activeEffects.getActive()) {
       e.setActive(false);
     }
     if (!processingEffects) {
@@ -122,8 +121,7 @@ public class EffectProcessor {
 
   public void reset(final String customKey) {
      activeEffectsToRemove.clear();
-     for (int i=0; i<activeEffects.getActive().size(); i++) {
-       Effect e = activeEffects.getActive().get(i);
+     for (Effect e : activeEffects.getActive()) {
        if (e.customKeyMatches(customKey)) {
          e.setActive(false);
          activeEffectsToRemove.add(e);
