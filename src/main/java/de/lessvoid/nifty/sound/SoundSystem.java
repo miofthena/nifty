@@ -1,7 +1,8 @@
 package de.lessvoid.nifty.sound;
 
 
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import de.lessvoid.nifty.spi.sound.SoundDevice;
@@ -15,7 +16,7 @@ public class SoundSystem {
   private static Logger log = Logger.getLogger(SoundSystem.class.getName());
 
   private SoundDevice soundDevice;
-  private Hashtable < String, SoundHandle > soundLookup;
+  private Map< String, SoundHandle > soundLookup;
 
   private float soundVolume;
   private float musicVolume;
@@ -30,7 +31,7 @@ public class SoundSystem {
     soundVolume = 1.0f;
     musicVolume = 1.0f;
 
-    soundLookup = new Hashtable < String, SoundHandle >();
+    soundLookup = new LinkedHashMap< String, SoundHandle >();
   }
 
   /**

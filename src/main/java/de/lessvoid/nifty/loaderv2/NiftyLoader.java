@@ -1,7 +1,7 @@
 package de.lessvoid.nifty.loaderv2;
 
 import java.io.InputStream;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -27,7 +27,7 @@ import de.lessvoid.xml.xpp3.XmlParser;
 
 public class NiftyLoader {
   private Logger log = Logger.getLogger(NiftyLoader.class.getName());
-  private Map < String, Schema > schemes = new Hashtable < String, Schema >();
+  private Map < String, Schema > schemes = new LinkedHashMap< String, Schema >();
   private TimeProvider timeProvider;
 
   public NiftyLoader(final TimeProvider timeProvider) {

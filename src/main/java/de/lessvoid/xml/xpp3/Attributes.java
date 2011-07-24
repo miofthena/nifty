@@ -1,13 +1,6 @@
 package de.lessvoid.xml.xpp3;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -22,8 +15,8 @@ import de.lessvoid.xml.tools.SpecialValuesReplace;
 // TODO: This class should be modified to implement the Map<String, String> interface (renaming all concerned method),
 // and should not expose its attributes member anymore.
 public class Attributes {
-  private Map < String, String > attributes = new Hashtable < String, String >();
-  private Map < String, Set < String >> taggedAttributes = new Hashtable < String, Set < String >>();
+  private Map < String, String > attributes = new LinkedHashMap< String, String >();
+  private Map < String, Set < String >> taggedAttributes = new LinkedHashMap < String, Set < String >>();
 
   public Attributes() {
   }
@@ -47,10 +40,10 @@ public class Attributes {
    * @param source source
    */
   public Attributes(final Attributes source) {
-    attributes = new Hashtable < String, String >();
+    attributes = new LinkedHashMap < String, String >();
     attributes.putAll(source.attributes);
 
-    taggedAttributes = new Hashtable < String, Set < String >>();
+    taggedAttributes = new LinkedHashMap < String, Set < String >>();
     taggedAttributes.putAll(source.taggedAttributes);
   }
 
@@ -218,7 +211,7 @@ public class Attributes {
   }
 
   private Map < String, String > xppToMap(final XmlPullParser xpp) {
-    Map < String, String > result = new Hashtable < String, String >();
+    Map < String, String > result = new LinkedHashMap < String, String >();
     for (int i = 0; i < xpp.getAttributeCount(); i++) {
       String key = xpp.getAttributeName(i);
       String value = xpp.getAttributeValue(i);
@@ -228,7 +221,7 @@ public class Attributes {
   }
 
   private void initAttributes(final Map < String, String > source) {
-    attributes = new Hashtable < String, String >();
+    attributes = new LinkedHashMap < String, String >();
 
     Set < Map.Entry < String, String >> entries = source.entrySet();
     for (Map.Entry < String, String > entry : entries) {

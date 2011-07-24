@@ -1,7 +1,7 @@
 package de.lessvoid.xml.lwxs.processor;
 
 import java.io.InputStream;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.xmlpull.mxp1.MXParser;
@@ -14,7 +14,7 @@ import de.lessvoid.xml.xpp3.XmlParser;
 import de.lessvoid.xml.xpp3.XmlProcessor;
 
 public class IncludeProcessor implements XmlProcessor {
-  private Map < String, Type > types = new Hashtable < String, Type >();
+  private Map < String, Type > types = new LinkedHashMap< String, Type >();
 
   public IncludeProcessor(final Map < String, Type > typesParam) {
     types = typesParam;

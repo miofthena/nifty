@@ -2,16 +2,7 @@ package de.lessvoid.nifty;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,12 +64,12 @@ public class Nifty {
   private Logger log = Logger.getLogger(Nifty.class.getName());
   private NiftyRenderEngine renderEngine;
   private SoundSystem soundSystem;
-  private Map < String, Screen > screens = new Hashtable < String, Screen >();
-  private Map < String, PopupType > popupTypes = new Hashtable < String, PopupType >();
-  private Map < String, Element > popups = new Hashtable < String, Element >();
-  private Map < String, StyleType > styles = new Hashtable < String, StyleType >();
-  private Map < String, ControlDefinitionType > controlDefintions = new Hashtable < String, ControlDefinitionType >();
-  private Map < String, RegisterEffectType > registeredEffects = new Hashtable < String, RegisterEffectType >();
+  private Map < String, Screen > screens = new LinkedHashMap< String, Screen >();
+  private Map < String, PopupType > popupTypes = new LinkedHashMap < String, PopupType >();
+  private Map < String, Element > popups = new LinkedHashMap < String, Element >();
+  private Map < String, StyleType > styles = new LinkedHashMap < String, StyleType >();
+  private Map < String, ControlDefinitionType > controlDefintions = new LinkedHashMap < String, ControlDefinitionType >();
+  private Map < String, RegisterEffectType > registeredEffects = new LinkedHashMap < String, RegisterEffectType >();
   private Screen currentScreen = new NullScreen();
   private String currentLoaded;
   private boolean exit;
@@ -96,8 +87,8 @@ public class Nifty {
   private boolean gotoScreenInProgess;
   private String alternateKey;
   private Collection < DelayedMethodInvoke > delayedMethodInvokes = new ArrayList < DelayedMethodInvoke > ();
-  private Map<String, String> resourceBundleSource = new Hashtable<String, String>();
-  private Map<String, ResourceBundle> resourceBundles = new Hashtable<String, ResourceBundle>();
+  private Map<String, String> resourceBundleSource = new LinkedHashMap<String, String>();
+  private Map<String, ResourceBundle> resourceBundles = new LinkedHashMap<String, ResourceBundle>();
   private Locale locale = Locale.getDefault();
   private Properties globalProperties;
   private RootLayerFactory rootLayerFactory = new RootLayerFactory();
@@ -1457,12 +1448,12 @@ public class Nifty {
   }
 
   private class SubscriberRegistry {
-    private Map < Screen, Map < String, List < ClassSaveEventTopicSubscriber >>> screenBasedSubscribers = new Hashtable < Screen, Map < String, List < ClassSaveEventTopicSubscriber >>>();
+    private Map < Screen, Map < String, List < ClassSaveEventTopicSubscriber >>> screenBasedSubscribers = new LinkedHashMap < Screen, Map < String, List < ClassSaveEventTopicSubscriber >>>();
 
     public void register(final Screen screen, final String elementId, final ClassSaveEventTopicSubscriber subscriber) {
       Map < String, List < ClassSaveEventTopicSubscriber >> elements = screenBasedSubscribers.get(screen);
       if (elements == null) {
-        elements = new Hashtable < String, List < ClassSaveEventTopicSubscriber >>();
+        elements = new LinkedHashMap < String, List < ClassSaveEventTopicSubscriber >>();
         screenBasedSubscribers.put(screen, elements);
       }
       List < ClassSaveEventTopicSubscriber > list = elements.get(elementId);

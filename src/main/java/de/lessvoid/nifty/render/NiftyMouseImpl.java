@@ -1,7 +1,7 @@
 package de.lessvoid.nifty.render;
 
 import java.io.IOException;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -15,7 +15,7 @@ public class NiftyMouseImpl implements NiftyMouse {
   private Logger log = Logger.getLogger(NiftyMouseImpl.class.getName());
   private RenderDevice renderDevice;
   private InputSystem inputSystem;
-  private Map < String, MouseCursor > registeredMouseCursors = new Hashtable < String, MouseCursor >();
+  private Map < String, MouseCursor > registeredMouseCursors = new LinkedHashMap< String, MouseCursor >();
   private String currentId;
   private int mouseX;
   private int mouseY;

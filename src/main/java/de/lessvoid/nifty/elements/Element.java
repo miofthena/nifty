@@ -1,7 +1,7 @@
 package de.lessvoid.nifty.elements;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -204,7 +204,7 @@ public class Element implements NiftyEvent<Void> {
   private int parentClipHeight;
 
   private static Convert convert = new Convert();
-  private static Map < Class < ? extends ElementRenderer >, ApplyRenderer > rendererApplier = new Hashtable < Class < ? extends ElementRenderer>, ApplyRenderer >();
+  private static Map < Class < ? extends ElementRenderer >, ApplyRenderer > rendererApplier = new LinkedHashMap< Class < ? extends ElementRenderer>, ApplyRenderer >();
   {
     rendererApplier.put(TextRenderer.class, new ApplyRenderText(convert));
     rendererApplier.put(ImageRenderer.class, new ApplyRendererImage(convert));

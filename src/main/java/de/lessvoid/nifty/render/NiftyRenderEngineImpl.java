@@ -1,6 +1,6 @@
 package de.lessvoid.nifty.render;
 
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -86,7 +86,7 @@ public class NiftyRenderEngineImpl implements NiftyRenderEngine {
   /**
    * font cache.
    */
-  private Map < String, RenderFont > fontCache = new Hashtable < String, RenderFont >();
+  private Map < String, RenderFont > fontCache = new LinkedHashMap< String, RenderFont >();
 
   /**
    * stack to save data.

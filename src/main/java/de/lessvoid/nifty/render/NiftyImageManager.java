@@ -1,9 +1,6 @@
 package de.lessvoid.nifty.render;
 
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Logger;
 
 import de.lessvoid.nifty.NiftyStopwatch;
@@ -13,8 +10,8 @@ import de.lessvoid.nifty.spi.render.RenderImage;
 public class NiftyImageManager {
   private Logger log = Logger.getLogger("NiftyImageManager");
   private RenderDevice renderDevice;
-  private Map <String, ReferencedCountedImage> imageCache = new Hashtable < String, ReferencedCountedImage >();
-  private Map <RenderImage, ReferencedCountedImage> backReference = new Hashtable <RenderImage, ReferencedCountedImage>();
+  private Map <String, ReferencedCountedImage> imageCache = new LinkedHashMap< String, ReferencedCountedImage >();
+  private Map <RenderImage, ReferencedCountedImage> backReference = new LinkedHashMap <RenderImage, ReferencedCountedImage>();
 
   public NiftyImageManager(final RenderDevice renderDevice) {
     this.renderDevice = renderDevice;
