@@ -71,14 +71,13 @@ public class EffectProcessor {
     }
 
     processingEffects = true;
-    for (int i=0; i<effects.size(); i++) {
-      Effect e = effects.get(i);
-      if (isActive(e)) {
-        e.update();
+    for (Effect e : effects) {
         if (isActive(e)) {
-          e.execute(renderDevice);
+            e.update();
+            if (isActive(e)) {
+                e.execute(renderDevice);
+            }
         }
-      }
     }
 
     checkFinish();
@@ -103,9 +102,8 @@ public class EffectProcessor {
   }
 
   public void restoreNeverStopRenderingEffects() {
-    for (int i=0; i<pushedEffects.size(); i++) {
-      Effect e = pushedEffects.get(i);
-      activate(listener, e.getAlternate(), e.getCustomKey());
+    for (Effect e : pushedEffects) {
+        activate(listener, e.getAlternate(), e.getCustomKey());
     }
   }
 
@@ -163,7 +161,7 @@ public class EffectProcessor {
     if (activeEffects.isEmpty()) {
       return "no active effects";
     } else {
-      StringBuffer data = new StringBuffer();
+      StringBuilder data = new StringBuilder();
       for (Effect e : activeEffects.getActive()) {
         if (data.length() != 0) {
           data.append(", ");
@@ -279,12 +277,11 @@ public class EffectProcessor {
    */
   public <T extends EffectImpl> List<Effect> getEffects(final Class<T> requestedClass) {
     List<Effect> result = new ArrayList<Effect>();
-    for (int i=0; i<allEffects.size(); i++) {
-      Effect effect = allEffects.get(i);
-      T effectImpl = effect.getEffectImpl(requestedClass);
-      if (effectImpl != null) {
-        result.add(effect);
-      }
+    for (Effect effect : allEffects) {
+        T effectImpl = effect.getEffectImpl(requestedClass);
+        if (effectImpl != null) {
+            result.add(effect);
+        }
     }
     return result;
   }
@@ -317,16 +314,7 @@ public class EffectProcessor {
   }
 
   private boolean isNotNeverStopRendering() {
-    for (Effect e : activeEffects.getActive()) {
-      if (e.isNeverStopRendering()) {
-        return false;
-      }
-    }
-    if (neverStopRendering) {
-      return false;
-    } else {
-      return true;  
-    }
+    return activeEffects.isAnyNotNeverStopRendering() && !neverStopRendering;
   }
 
   private boolean isActive(final Effect e) {

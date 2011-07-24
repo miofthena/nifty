@@ -14,16 +14,19 @@ public class ActiveEffects {
   private List<Effect> pre = new ArrayList<Effect>();
   private List<Effect> overlay = new ArrayList<Effect>();
 
+  private volatile boolean anyNotNeverStopRendering = true;
+
   public void clear() {
     all.clear();
     post.clear();
     pre.clear();
     overlay.clear();
+    anyNotNeverStopRendering = _isAnyNotNeverStopRendering();
   }
 
   public void add(final Effect e) {
     all.add(e);
-
+    anyNotNeverStopRendering = _isAnyNotNeverStopRendering();
     if (e.isOverlay()) {
       overlay.add(e);
     } else if (e.isPost()) {
@@ -35,6 +38,7 @@ public class ActiveEffects {
 
   public void remove(final Effect e) {
     all.remove(e);
+    anyNotNeverStopRendering = _isAnyNotNeverStopRendering();
     post.remove(e);
     pre.remove(e);
     overlay.remove(e);
@@ -53,11 +57,10 @@ public class ActiveEffects {
   }
 
   public boolean containsActiveEffects() {
-    for (int i=0; i<all.size(); i++) {
-      Effect e = all.get(i);
-      if (e.isActive()) {
-        return true;
-      }
+    for (Effect e : all) {
+        if (e.isActive()) {
+            return true;
+        }
     }
     return false;
   }
@@ -76,5 +79,18 @@ public class ActiveEffects {
 
   public List<Effect> getActiveOverlay() {
     return overlay;
+  }
+
+    public boolean isAnyNotNeverStopRendering() {
+        return anyNotNeverStopRendering;
+    }
+
+    private boolean _isAnyNotNeverStopRendering(){
+    for (Effect e : all) {
+      if (e.isNeverStopRendering()) {
+        return false;
+      }
+    }
+    return true;
   }
 }
