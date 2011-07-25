@@ -148,11 +148,7 @@ public class Effect {
 
   public boolean customKeyMatches(final String customKeyToCheck) {
     if (customKeyToCheck == null) {
-      if (customKey == null) {
-        return true;
-      } else {
-        return false;
-      }
+        return customKey == null;
     } else if (customKeyToCheck.equals(customKey)) {
       return true;
     }
